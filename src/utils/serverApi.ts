@@ -1,4 +1,4 @@
-import { Champion } from "@/types/Champion";
+import { Champion, ChampionListResponse } from "@/types/Champion";
 import { ChampionDetail } from "@/types/ChampionDetail";
 import { Item } from "@/types/Item";
 
@@ -17,21 +17,18 @@ export async function fetchVersion(): Promise<string> {
 }
 
 // 챔피언전체정보
-export async function fetchChampionList(): Promise<Champion[]> {
+export async function fetchChampionList(): Promise<ChampionListResponse> {
   const version = await fetchVersion();
   try {
     const res = await fetch(
-      `${BASEURL}/cdn/${version}/data/ko_KR/champion.json`,
-      {
-        cache: "no-store",
-      }
+      `${BASEURL}/cdn/${version}/data/ko_KR/champion.json`
     );
     const data = await res.json();
-    console.log(data.data);
-    return Object.values(data.data);
+
+    return data.data;
   } catch (error) {
     console.log(error, "ChampionList Error");
-    return [];
+    return {};
   }
 }
 

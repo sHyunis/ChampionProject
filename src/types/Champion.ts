@@ -19,5 +19,9 @@ export type Champion = {
     h: number;
   };
   tags: string[];
-  key: number;
+  key: string;
+};
+
+export type ChampionListResponse = {
+  [key: string]: Champion;
 };

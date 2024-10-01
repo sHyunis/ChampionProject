@@ -1,14 +1,14 @@
 "use client";
 
 import ChampionCard from "@/components/ChampionCard";
-import { Champion } from "@/types/Champion";
-import { ChampionRotation } from "@/types/ChampionRotation";
+import { Champion, ChampionListResponse } from "@/types/Champion";
+
 import { getChampionRotation } from "@/utils/riotApi";
 import { fetchChampionList } from "@/utils/serverApi";
 import React, { useEffect, useState } from "react";
 
 const RotationPage = () => {
-  const [rotationData, setRotationData] = useState<ChampionRotation[]>([]);
+  const [rotationData, setRotationData] = useState<Champion[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string>("");
 
@@ -20,7 +20,7 @@ const RotationPage = () => {
         const rotationIds = res.freeChampionIds || [];
 
         // 전체 데이터
-        const championListRes = await fetchChampionList();
+        const championListRes: ChampionListResponse = await fetchChampionList();
 
         // 로테이션 id와 전체 데이터의 key 비교하여 매칭되는 데이터 추출
         const matchedChampions = Object.keys(championListRes)
