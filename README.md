@@ -13,13 +13,13 @@
 
 홈페이지
 ![](https://velog.velcdn.com/images/alice0751/post/9ec1ce09-0b39-4f38-a7f4-1b2ec8a29be8/image.png)
-챔피언목록
+챔피언목록 : 챔피언 캐릭터들을 조회, 클릭하여 캐릭터별 상세페이지로 이동가능
 ![](https://velog.velcdn.com/images/alice0751/post/cb820a24-8e3e-4e1d-89d9-6f2b12111fc2/image.png)
-아이템목록
+아이템목록 : 아이템 목록들을 조회
 ![](https://velog.velcdn.com/images/alice0751/post/844deacd-a283-4107-aaf1-cc7b386fdbd7/image.png)
-챔피언로테이션
+챔피언로테이션 : 금주에 사용가능한 챔피언 캐릭터들을 조회
 ![](https://velog.velcdn.com/images/alice0751/post/4f80904f-65d7-438d-b9bd-054fb287851a/image.png)
-상세페이지
+상세페이지 : 캐릭터별 상세정보 조회
 ![](https://velog.velcdn.com/images/alice0751/post/fdb9fd66-245f-4b1f-8a6d-70c05e4b0854/image.png)
 
 ---
@@ -477,6 +477,7 @@ import Image from "next/image";
 
 # 🌟 배포
 
+![](https://velog.velcdn.com/images/alice0751/post/fb5cdec4-50f9-489b-9e6d-328a36478232/image.png)
 💥 문제점
 : Rotation페이지에서 loading과 error를 useState()를 사용하여 페이지를 표시해주었는데 배포하는 과정에서 error가 사용되지 않았다는 오류가 떴다. 맨 처음은 이전에 React 작업했을 때와 비슷하게 error를 처리했더니 typescript관련 오류도 함께 발생하였다.
 
