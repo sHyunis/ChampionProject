@@ -1,4 +1,4 @@
-import { Champion, ChampionListResponse } from "@/types/Champion";
+import { ChampionListResponse } from "@/types/Champion";
 import { ChampionDetail } from "@/types/ChampionDetail";
 import { Item } from "@/types/Item";
 

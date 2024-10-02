@@ -1,7 +1,7 @@
 "use server";
 
 import ChampionCard from "@/components/ChampionCard";
-import { Champion, ChampionListResponse } from "@/types/Champion";
+import { ChampionListResponse } from "@/types/Champion";
 import { fetchChampionList } from "@/utils/serverApi";
 
 export default async function ChampionPage() {

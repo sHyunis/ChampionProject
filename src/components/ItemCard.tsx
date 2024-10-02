@@ -1,8 +1,5 @@
-import { Champion } from "@/types/Champion";
 import { Item } from "@/types/Item";
-import { fetchItem } from "@/utils/serverApi";
 import Image from "next/image";
-import Link from "next/link";
 
 const BASEURL = "https://ddragon.leagueoflegends.com/cdn";
 
