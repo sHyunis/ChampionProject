@@ -30,8 +30,11 @@ const RotationPage = () => {
           .map((key) => championListRes[key]);
 
         setRotationData(matchedChampions); // 필터링된 데이터 저장
-      } catch (error) {
-        setError("error");
+      } catch (error: unknown) {
+        if (error instanceof Error) setError(error.message);
+        else {
+          setError("Rotation Error");
+        }
       } finally {
         setLoading(false);
       }
