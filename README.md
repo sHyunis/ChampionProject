@@ -16,7 +16,7 @@
 챔피언목록 : 챔피언 캐릭터들을 조회, 클릭하여 캐릭터별 상세페이지로 이동가능
 ![](https://velog.velcdn.com/images/alice0751/post/cb820a24-8e3e-4e1d-89d9-6f2b12111fc2/image.png)
 아이템목록 : 아이템 목록들을 조회
-![](https://velog.velcdn.com/images/alice0751/post/844deacd-a283-4107-aaf1-cc7b386fdbd7/image.png)
+![](https://velog.velcdn.com/images/alice0751/post/0f6839e0-deb0-43c0-8a4a-d5a7d7592bd6/image.png)
 챔피언로테이션 : 금주에 사용가능한 챔피언 캐릭터들을 조회
 ![](https://velog.velcdn.com/images/alice0751/post/4f80904f-65d7-438d-b9bd-054fb287851a/image.png)
 상세페이지 : 캐릭터별 상세정보 조회
@@ -471,6 +471,230 @@ import Image from "next/image";
     className="mb-4"
   />
 </div>;
+```
+
+---
+
+#### 🥵 문제점
+
+: api를 불러오는 src>utils>serverApi.ts에서 error메세지를 설정해준 후 src>app>champions>page.tsx api를 가져와 레이아웃을 그리는 페이지들이 type오류가 발생했다.
+
+// serverApi.ts
+
+```tsx
+// 최신버전
+export async function fetchVersion(): Promise<string | CustomError> {
+  try {
+    const fetchVersion = await fetch(`${BASEURL}/api/versions.json`);
+    const versionRes = await fetchVersion.json();
+    return versionRes[0]; // 최신 버전 반환
+  } catch (error) {
+    console.log(error, "Version Error");
+    return {
+      message: "최신 버전을 가져오는데 실패했습니다.",
+    };
+  }
+}
+```
+
+오류화면
+![](https://velog.velcdn.com/images/alice0751/post/4c880e5c-a90e-4b3c-ba81-2ae9ce0e3829/image.png)
+
+- 내가 예상한 오류는 이미 아래처럼 data에 type이 설정되어있는데 여기서 설정한 type안에 error처리는 없어서였다.
+
+```tsx
+
+export default async function ChampionPage() {
+  const data: ChampionListResponse = await fetchChampionList();
+
+  return (
+    <>
+      <h1 className="font-extrabold text-3xl text-center mt-12">챔피언목록</h1>
+```
+
+- 1차 해결방법
+  내가 생각했던 이유가 맞았고 data의 type지정 부분에 CustomError도 함께 추가시켜주니 championList페이지는 에러가 해결되었다!
+
+```tsx
+
+export default async function ChampionPage() {
+  const data: ChampionListResponse | CustomError = await fetchChampionList();
+
+  return (
+    <>
+      <h1 className="font-extrabold text-3xl text-center mt-12">챔피언목록</h1>
+      <div className="w-[80%] grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 mx-auto mt-12 gap-4">
+        <Suspense fallback={<Loading type="page1" />}>
+          {Object.values(data).map((champion) => (
+            <ChampionCard key={champion.id} champion={champion} />
+          ))}
+        </Suspense>
+      </div>
+    </>
+  );
+```
+
+#### 🥵 또 다른 에러 발생
+
+- 다른 페이지들도 같은 방식으로 해결하면 될 것 같다고 생각했는데 적용시켜보니 또 다른 오류가 발생했다.
+  ![](https://velog.velcdn.com/images/alice0751/post/ff22002b-72f6-478d-b378-6b257e1d2fa7/image.png)
+
+#### ✨ 해결방법
+
+- fetch에서 넘어온 data를 items로 저장을 했었다. fetch가 실패해서 데이터가 넘어올경우 message가 넘어오는데 이것이 내가 지정해준 Item[]에 없어서 오류가 발생
+- 해결하기 위해서 data안에 message가 있는지 확인하는 로직을 추가해주었다 해결!
+
+```tsx
+const ItemPage = async () => {
+  const items: Item[] | CustomError = await fetchItem();
+
+  if ("message" in items) {
+    return <ErrorComponent error={items} />;
+  }
+  return (
+    <div>
+      <h1 className="text-center mt-12 text-3xl font-extrabold">아이템 목록</h1>
+      <div className="w-[80%] grid grid-cols-4 sm:grid-cols-6 lg:grid-cols-8 mx-auto mt-12 gap-4">
+        <Suspense fallback={<Loading type={"page3"} />}>
+          {items?.map((item) => (
+            <ItemCard key={item.id} item={item} />
+          ))}
+        </Suspense>
+      </div>
+    </div>
+  );
+};
+```
+
+---
+
+# 💥 Trouble Shooting 2 & 코드 리펙토링
+
+#### 🥵 문제점
+
+- rotation페이지는 client side rendering 방식으로 렌더링을 하고 있었고 useEffect()를 통해 페이지가 처음 로드될 때 데이터를 불러올 수 있도록 처리를 했었다. 이 과정에서 useState()를 사용하여 loading과 Error를 따로 처리해주었는데 useQuery를 사용하면 가독성부분과 관리측면에서도 더 용이할 것 같아 리펙토링 하게 되었다.
+
+#### 순서
+
+1. Tanstack Query설치
+
+```tsx
+yarn add @tanstack/react-query
+
+```
+
+2. app>providers.tsx생성 후 로직작성
+
+```tsx
+"use client";
+
+import {
+  isServer,
+  QueryClient,
+  QueryClientProvider,
+} from "@tanstack/react-query";
+
+function makeQueryClient() {
+  return new QueryClient({
+    defaultOptions: {
+      queries: {
+        staleTime: 60 * 1000,
+      },
+    },
+  });
+}
+
+let browserQueryClient: QueryClient | undefined = undefined;
+
+function getQueryClient() {
+  if (isServer) {
+    return makeQueryClient();
+  } else {
+    if (!browserQueryClient) browserQueryClient = makeQueryClient();
+    return browserQueryClient;
+  }
+}
+
+export default function Providers({ children }: { children: React.ReactNode }) {
+  const queryClient = getQueryClient();
+
+  return (
+    <QueryClientProvider client={queryClient}>{children}</QueryClientProvider>
+  );
+}
+```
+
+3. CSR에서 useQuery사용
+
+- useQuery를 사용해 data, isLoading, error 처리
+
+```tsx
+"use client";
+
+import ChampionCard from "@/components/ChampionCard";
+import { Champion, ChampionListResponse } from "@/types/Champion";
+import { getChampionRotation } from "@/utils/riotApi";
+import { fetchChampionList } from "@/utils/serverApi";
+import React from "react";
+import { useQuery } from "@tanstack/react-query";
+import { CustomError } from "@/types/Error";
+import ErrorComponent from "../error";
+
+const fetchRotationData = async (): Promise<Champion[]> => {
+  // 이번 주 로테이션 데이터
+  const res = await getChampionRotation();
+  const rotationIds = res.freeChampionIds || [];
+
+  // 전체 데이터
+  const championListRes: ChampionListResponse | CustomError =
+    await fetchChampionList();
+
+  // CustomError 처리
+  if ("message" in championListRes) {
+    throw new Error("championList에러입니다");
+  }
+
+  // 로테이션 id와 전체 데이터의 key 비교하여 매칭되는 데이터 추출
+  return Object.keys(championListRes)
+    .filter((championKey) =>
+      rotationIds.includes(parseInt(championListRes[championKey].key))
+    )
+    .map((key) => championListRes[key]);
+};
+
+const RotationPage = () => {
+  const {
+    data: rotationData,
+    isLoading,
+    error,
+  } = useQuery<Champion[], Error>({
+    queryKey: ["champitonRotation"],
+    queryFn: fetchRotationData,
+  });
+
+  if (isLoading) {
+    return <div>Loading...</div>;
+  }
+
+  if (error) {
+    return <ErrorComponent error={error} />;
+  }
+
+  return (
+    <div>
+      <h1 className="font-extrabold text-3xl text-center mt-12 text-red-400">
+        이번주 로테이션 챔피언
+      </h1>
+      <div className="w-[80%] grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 mx-auto mt-12 gap-4">
+        {rotationData?.map((champion) => (
+          <ChampionCard key={champion.key} champion={champion} />
+        ))}
+      </div>
+    </div>
+  );
+};
+
+export default RotationPage;
 ```
 
 ---
