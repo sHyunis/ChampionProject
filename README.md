@@ -24,7 +24,7 @@
 ![](https://velog.velcdn.com/images/alice0751/post/713345a1-c6fe-45d8-8b07-377e4a914c99/image.png)
 
 상세페이지 : 캐릭터별 상세정보 조회
-![](https://velog.velcdn.com/images/alice0751/post/a97cdea4-cfb5-4a7e-a028-be169d9c97c7/image.png)
+![](https://velog.velcdn.com/images/alice0751/post/03d45404-d8e0-4a36-ad46-800337a32e56/image.png)
 
 로테이션페이지 : 이번주 무료로 사용가능한 페이지를 조회
 
