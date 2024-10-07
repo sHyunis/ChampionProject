@@ -13,6 +13,9 @@ import Loading from "../loading";
 const fetchRotationData = async (): Promise<Champion[]> => {
   // 이번 주 로테이션 데이터
   const res = await getChampionRotation();
+  if ("message" in res) {
+    throw new Error();
+  }
   const rotationIds = res.freeChampionIds || [];
 
   // 전체 데이터
@@ -38,7 +41,7 @@ const RotationPage = () => {
     isLoading,
     error,
   } = useQuery<Champion[], Error>({
-    queryKey: ["champitonRotation"],
+    queryKey: ["championRotation"],
     queryFn: fetchRotationData,
   });
 
