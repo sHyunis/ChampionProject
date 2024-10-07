@@ -10,6 +10,7 @@ const Loading: React.FC<LoadingProps> = ({ type }) => {
       return (
         <div className="w-full mx-auto flex justify-center items-center h-[100vh]">
           <Image src={LoadingImage} alt="loading" />
+          <br />
           <p className="text-center">CHAMPIONLIST</p>
         </div>
       );
@@ -17,6 +18,7 @@ const Loading: React.FC<LoadingProps> = ({ type }) => {
       return (
         <div className="w-full mx-auto flex justify-center items-center  h-[100vh]">
           <Image src={LoadingImage} alt="loading" />
+          <br />
           <p className="text-center">DETAIL PAGE</p>
         </div>
       );
@@ -24,6 +26,7 @@ const Loading: React.FC<LoadingProps> = ({ type }) => {
       return (
         <div className="w-full mx-auto flex justify-center items-center  h-[100vh]">
           <Image src={LoadingImage} alt="loading" />
+          <br />
           <p className="text-center">ITEM LIST</p>
         </div>
       );
@@ -31,6 +34,7 @@ const Loading: React.FC<LoadingProps> = ({ type }) => {
       return (
         <div className="w-full mx-auto flex justify-center items-center  h-[100vh]">
           <Image src={LoadingImage} alt="loading" />
+          <br />
           <p className="text-center">FREE CHARACTOR</p>
         </div>
       );

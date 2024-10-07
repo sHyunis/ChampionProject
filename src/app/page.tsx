@@ -26,7 +26,7 @@ const IMAGELIST = [
 export default function Home() {
   return (
     <div className={`w-[70%] mx-auto mt-8 text-center font-korean`}>
-      <h1 className="font-english font-extrabold text-8xl mb-8 text-blue-200">
+      <h1 className="font-english font-extrabold text-4xl md:text-8xl mb-8 text-blue-200 flex justify-center items-center flex-wrap ">
         <span className="text-pink-200">FIND</span> YOUR&nbsp;
         <span className="text-green-200">CHARACTER</span>
       </h1>

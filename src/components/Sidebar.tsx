@@ -9,7 +9,7 @@ const Sidebar = () => {
     });
   };
   return (
-    <div className="fixed right-10 bottom-12">
+    <div className="fixed right-6 bottom-12">
       <FaAngleUp onClick={scrollUp} className="text-4xl cursor-pointer" />
     </div>
   );
