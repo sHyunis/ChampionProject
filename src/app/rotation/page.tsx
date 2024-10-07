@@ -2,51 +2,51 @@
 
 import ChampionCard from "@/components/ChampionCard";
 import { Champion, ChampionListResponse } from "@/types/Champion";
-
 import { getChampionRotation } from "@/utils/riotApi";
 import { fetchChampionList } from "@/utils/serverApi";
-import React, { useEffect, useState } from "react";
+import React from "react";
+import { useQuery } from "@tanstack/react-query";
+import { CustomError } from "@/types/Error";
+import ErrorComponent from "../error";
+
+const fetchRotationData = async (): Promise<Champion[]> => {
+  // 이번 주 로테이션 데이터
+  const res = await getChampionRotation();
+  const rotationIds = res.freeChampionIds || [];
+
+  // 전체 데이터
+  const championListRes: ChampionListResponse | CustomError =
+    await fetchChampionList();
+
+  // CustomError 처리
+  if ("message" in championListRes) {
+    throw new Error("championList에러입니다");
+  }
+
+  // 로테이션 id와 전체 데이터의 key 비교하여 매칭되는 데이터 추출
+  return Object.keys(championListRes)
+    .filter((championKey) =>
+      rotationIds.includes(parseInt(championListRes[championKey].key))
+    )
+    .map((key) => championListRes[key]);
+};
 
 const RotationPage = () => {
-  const [rotationData, setRotationData] = useState<Champion[]>([]);
-  const [loading, setLoading] = useState<boolean>(true);
-  const [error, setError] = useState<string>("");
+  const {
+    data: rotationData,
+    isLoading,
+    error,
+  } = useQuery<Champion[], Error>({
+    queryKey: ["champitonRotation"],
+    queryFn: fetchRotationData,
+  });
 
-  useEffect(() => {
-    const fetchRotationData = async () => {
-      try {
-        // 이번 주 로테이션 데이터
-        const res = await getChampionRotation();
-        const rotationIds = res.freeChampionIds || [];
-
-        // 전체 데이터
-        const championListRes: ChampionListResponse = await fetchChampionList();
-
-        // 로테이션 id와 전체 데이터의 key 비교하여 매칭되는 데이터 추출
-        const matchedChampions = Object.keys(championListRes)
-          .filter((championKey) =>
-            rotationIds.includes(parseInt(championListRes[championKey].key))
-          )
-          .map((key) => championListRes[key]);
-
-        setRotationData(matchedChampions); // 필터링된 데이터 저장
-      } catch (error: unknown) {
-        if (error instanceof Error) setError(error.message);
-        else {
-          setError("Rotation Error");
-        }
-      } finally {
-        setLoading(false);
-      }
-    };
-    fetchRotationData();
-  }, []);
-
-  if (loading) {
+  if (isLoading) {
     return <div>Loading...</div>;
   }
+
   if (error) {
-    return <div>Error</div>;
+    return <ErrorComponent error={error} />;
   }
 
   return (
@@ -55,8 +55,8 @@ const RotationPage = () => {
         이번주 로테이션 챔피언
       </h1>
       <div className="w-[80%] grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 mx-auto mt-12 gap-4">
-        {rotationData.map((champion) => (
-          <ChampionCard key={champion.id} champion={champion} />
+        {rotationData?.map((champion) => (
+          <ChampionCard key={champion.key} champion={champion} />
         ))}
       </div>
     </div>
