@@ -12,17 +12,23 @@
 - **진행 기간** &nbsp;: &nbsp; **24.09.30 ~ 24.10.07**
 
 홈페이지
-![](https://velog.velcdn.com/images/alice0751/post/9ec1ce09-0b39-4f38-a7f4-1b2ec8a29be8/image.png)
-챔피언목록 : 챔피언 캐릭터들을 조회, 클릭하여 캐릭터별 상세페이지로 이동가능
-![](https://velog.velcdn.com/images/alice0751/post/cb820a24-8e3e-4e1d-89d9-6f2b12111fc2/image.png)
-아이템목록 : 아이템 목록들을 조회
-![](https://velog.velcdn.com/images/alice0751/post/0f6839e0-deb0-43c0-8a4a-d5a7d7592bd6/image.png)
-챔피언로테이션 : 금주에 사용가능한 챔피언 캐릭터들을 조회
-![](https://velog.velcdn.com/images/alice0751/post/4f80904f-65d7-438d-b9bd-054fb287851a/image.png)
-상세페이지 : 캐릭터별 상세정보 조회
-![](https://velog.velcdn.com/images/alice0751/post/fdb9fd66-245f-4b1f-8a6d-70c05e4b0854/image.png)
 
----
+![](https://velog.velcdn.com/images/alice0751/post/8503f37d-8d60-4a16-90eb-fbbbaf868d80/image.png)
+
+챔피언목록 : 챔피언 캐릭터들을 조회, 클릭하여 캐릭터별 상세페이지로 이동가능
+
+![](https://velog.velcdn.com/images/alice0751/post/a96b8a3a-a5de-449b-8ac4-2c05d069c267/image.png)
+
+아이템목록 : 아이템 목록들을 조회
+
+![](https://velog.velcdn.com/images/alice0751/post/713345a1-c6fe-45d8-8b07-377e4a914c99/image.png)
+
+상세페이지 : 캐릭터별 상세정보 조회
+![](https://velog.velcdn.com/images/alice0751/post/a97cdea4-cfb5-4a7e-a028-be169d9c97c7/image.png)
+
+로테이션페이지 : 이번주 무료로 사용가능한 페이지를 조회
+
+## ![](https://velog.velcdn.com/images/alice0751/post/d349fc4d-d87c-4bde-a5e8-277c7ac194e8/image.png)
 
 사용한 기술스택
 
