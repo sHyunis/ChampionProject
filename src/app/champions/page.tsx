@@ -19,7 +19,7 @@ export default async function ChampionPage() {
   );
 }
 
-// 메타데이터 설정을 위한 function을 추가
+// 메타데이터 설정
 export async function generateMetadata() {
   return {
     revalidate: 86400,
