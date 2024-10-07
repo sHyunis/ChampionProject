@@ -27,7 +27,7 @@ export default async function ChampionDetailPage({ params }: Params) {
   }
   return (
     <div className="w-[80%] mx-auto font-korean">
-      <div className="w-[500px] mt-8 p-8 mx-auto shadow-md rounded">
+      <div className="w-full mt-8 p-8 mx-auto shadow-md rounded">
         <h1 className="font-extrabold text-4xl text-center  text-red-400">
           {data.name}
         </h1>
@@ -46,7 +46,7 @@ export default async function ChampionDetailPage({ params }: Params) {
       <h2 className="font-extrabold text-2xl mt-8 text-red-300 text-center">
         {data.name}의 스킬
       </h2>
-      <div className="mt-8  w-[500px] mx-auto grid grid-cols-4 mb-12 gap-4 text-center">
+      <div className="mt-8  w-full mx-auto grid grid-cols-4 mb-12 gap-4 text-center">
         <Suspense fallback={<Loading type={"page2"} />}>
           {data.spells.map((spell) => (
             <div
