@@ -6,7 +6,6 @@ import { Suspense } from "react";
 import Loading from "./loading";
 import Providers from "./provider";
 import Sidebar from "@/components/Sidebar";
-import Head from "next/head";
 
 const geistSans = localFont({
   src: "../public/fonts/MaruBuri-Regular.ttf",

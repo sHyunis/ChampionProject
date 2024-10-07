@@ -21,7 +21,10 @@ export default function Header() {
       <nav>
         <ul className="grid grid-cols-4 w-full bg-slate-800 h-10 font-extrabold">
           {NAVMENU.map((nav) => (
-            <li className="flex font-extrabold justify-center items-center duration-500 hover:bg-gray-200 hover:text-black ">
+            <li
+              className="flex font-extrabold justify-center items-center duration-500 hover:bg-gray-200 hover:text-black "
+              key={nav.menu}
+            >
               <Link
                 href={nav.href}
                 className="w-full h-full flex justify-center items-center font-bold"
