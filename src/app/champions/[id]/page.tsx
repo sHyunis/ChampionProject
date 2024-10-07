@@ -46,7 +46,7 @@ export default async function ChampionDetailPage({ params }: Params) {
       <h2 className="font-extrabold text-2xl mt-8 text-red-300 text-center">
         {data.name}의 스킬
       </h2>
-      <div className="mt-8  w-full mx-auto grid grid-cols-4 mb-12 gap-4 text-center">
+      <div className="mt-8  w-full max-w-xl mx-auto grid grid-cols-4 mb-12 gap-4 text-center">
         <Suspense fallback={<Loading type={"page2"} />}>
           {data.spells.map((spell) => (
             <div
@@ -58,7 +58,7 @@ export default async function ChampionDetailPage({ params }: Params) {
                 alt={`${spell.id}`}
                 width={100}
                 height={100}
-                className="border border-solid border-white border-r-0 border-l-0 border-t-0 mt-4 pb-4 "
+                className="border border-solid border-white border-r-0 border-l-0 border-t-0 mt-4 pb-4 mx-auto "
               />
               <p className="mt-2 font-bold">{spell.name}</p>
               <p className="text-sm h-[80px] overflow-auto text-left mt-2">
