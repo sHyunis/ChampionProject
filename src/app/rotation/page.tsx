@@ -7,14 +7,17 @@ import { fetchChampionList } from "@/utils/serverApi";
 import React from "react";
 import { useQuery } from "@tanstack/react-query";
 import { CustomError } from "@/types/Error";
-import ErrorComponent from "../error";
 import Loading from "../loading";
 
 const fetchRotationData = async (): Promise<Champion[]> => {
   // 이번 주 로테이션 데이터
   const res = await getChampionRotation();
+
+  if (!res) {
+    throw new Error("데이터 가져오기 실패");
+  }
   if ("message" in res) {
-    throw new Error();
+    throw new Error(res.message);
   }
   const rotationIds = res.freeChampionIds || [];
 
@@ -50,7 +53,7 @@ const RotationPage = () => {
   }
 
   if (error) {
-    return <ErrorComponent error={error} />;
+    return <div>Rotation 데이터를 가져오는데 실패했습니다.</div>;
   }
 
   return (

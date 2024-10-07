@@ -1,6 +1,6 @@
 # 롤챌린지소개페이지
 
-배포사이트주소 : https://champion-project-8wbj.vercel.app/
+배포사이트주소 : https://champion-project-gjgb.vercel.app/
 
 ## 👨‍🏫 프로젝트 소개
 
