@@ -10,7 +10,7 @@ type ChampionCardProps = {
 
 const ChampionCard = ({ champion }: ChampionCardProps) => {
   return (
-    <div className="border border-solid border-white p-8 mx-auto mb-4 text-center">
+    <div className="border border-solid border-borderColor p-8 mx-auto mb-4 text-center rounded hover:tracking-wide">
       <Link href={`/champions/${champion.id}`}>
         <Image
           src={`${BASEURL}/14.19.1/img/champion/${champion.image.full}`}

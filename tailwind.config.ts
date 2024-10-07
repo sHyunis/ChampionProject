@@ -9,11 +9,13 @@ const config: Config = {
   theme: {
     extend: {
       fontFamily: {
-        logo: ["var(--font-pretendard)"],
+        korean: ["var(--KoreanMain)"],
+        english: ["var(--EnglishMain)"],
       },
       colors: {
         background: "var(--background)",
         foreground: "var(--foreground)",
+        borderColor: "var(--border)",
       },
     },
   },

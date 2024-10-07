@@ -1,42 +1,35 @@
 import Link from "next/link";
 
+const NAVMENU = [
+  {
+    href: "/",
+    menu: "HOME",
+  },
+  {
+    href: "champions",
+    menu: "챔피언 리스트",
+  },
+  {
+    href: "/items",
+    menu: "아이템 목록",
+  },
+  { href: "/rotation", menu: "무료 캐릭터" },
+];
 export default function Header() {
   return (
-    <header className="w-full">
+    <header className="w-full font-korean">
       <nav>
-        <ul className="grid grid-cols-4 w-full bg-slate-800 h-10">
-          <li className="flex justify-center items-center border border-solid border-gray-500 border-r-0 hover:bg-gray-200 hover:text-black ">
-            <Link
-              href="/"
-              className="w-full h-full flex justify-center items-center font-bold"
-            >
-              홈
-            </Link>
-          </li>
-          <li className="flex justify-center items-center border border-solid border-gray-500 border-r-0 hover:bg-gray-200 hover:text-black ">
-            <Link
-              href="/champions"
-              className="w-full h-full flex justify-center items-center font-bold"
-            >
-              챔피언 목록
-            </Link>
-          </li>
-          <li className="flex justify-center items-center border border-solid border-gray-500 border-r-0 hover:bg-gray-200 hover:text-black ">
-            <Link
-              href="/items"
-              className="w-full h-full flex justify-center items-center font-bold"
-            >
-              아이템 목록
-            </Link>
-          </li>
-          <li className="flex justify-center items-center border border-solid border-gray-500 hover:bg-gray-200 hover:text-black ">
-            <Link
-              href="/rotation"
-              className="w-full h-full flex justify-center items-center font-bold"
-            >
-              챔피언 로테이션
-            </Link>
-          </li>
+        <ul className="grid grid-cols-4 w-full bg-slate-800 h-10 font-extrabold">
+          {NAVMENU.map((nav) => (
+            <li className="flex font-extrabold justify-center items-center duration-500 hover:bg-gray-200 hover:text-black ">
+              <Link
+                href={nav.href}
+                className="w-full h-full flex justify-center items-center font-bold"
+              >
+                {nav.menu}
+              </Link>
+            </li>
+          ))}
         </ul>
       </nav>
     </header>

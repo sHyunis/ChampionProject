@@ -5,15 +5,17 @@ import Footer from "@/components/Footer";
 import { Suspense } from "react";
 import Loading from "./loading";
 import Providers from "./provider";
+import Sidebar from "@/components/Sidebar";
+import Head from "next/head";
 
 const geistSans = localFont({
-  src: "./fonts/GeistVF.woff",
-  variable: "--font-geist-sans",
+  src: "../public/fonts/MaruBuri-Regular.ttf",
+  variable: "--KoreanMain",
   weight: "100 900",
 });
 const geistMono = localFont({
-  src: "./fonts/GeistMonoVF.woff",
-  variable: "--font-geist-mono",
+  src: "../public/fonts/Gomawo.ttf",
+  variable: "--EnglishMain",
   weight: "100 900",
 });
 
@@ -44,10 +46,11 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        className={`${geistSans.variable} ${geistMono.variable} antialiased  min-w-[480px] min-h-[800px]`}
       >
         <Providers>
           <Header />
+          <Sidebar />
           <Suspense fallback={<Loading type={"default"} />}>
             {children}
           </Suspense>

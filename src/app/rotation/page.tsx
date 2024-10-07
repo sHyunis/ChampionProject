@@ -8,6 +8,7 @@ import React from "react";
 import { useQuery } from "@tanstack/react-query";
 import { CustomError } from "@/types/Error";
 import ErrorComponent from "../error";
+import Loading from "../loading";
 
 const fetchRotationData = async (): Promise<Champion[]> => {
   // 이번 주 로테이션 데이터
@@ -42,7 +43,7 @@ const RotationPage = () => {
   });
 
   if (isLoading) {
-    return <div>Loading...</div>;
+    return <Loading type={"page4"} />;
   }
 
   if (error) {
@@ -50,7 +51,7 @@ const RotationPage = () => {
   }
 
   return (
-    <div>
+    <div className="font-korean">
       <h1 className="font-extrabold text-3xl text-center mt-12 text-red-400">
         이번주 로테이션 챔피언
       </h1>

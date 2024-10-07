@@ -14,7 +14,7 @@ const ItemPage = async () => {
     return <ErrorComponent error={items} />;
   }
   return (
-    <div>
+    <div className="font-korean">
       <h1 className="text-center mt-12 text-3xl font-extrabold">아이템 목록</h1>
       <div className="w-[80%] grid grid-cols-4 sm:grid-cols-6 lg:grid-cols-8 mx-auto mt-12 gap-4">
         <Suspense fallback={<Loading type={"page3"} />}>

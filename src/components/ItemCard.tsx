@@ -1,5 +1,6 @@
 import { Item } from "@/types/Item";
 import Image from "next/image";
+import styles from "../app/styles/itemCard.module.css"; // CSS 모듈 임포트
 
 const BASEURL = "https://ddragon.leagueoflegends.com/cdn";
 
@@ -7,21 +8,25 @@ type ItemCardProps = {
   item: Item;
 };
 
-const ItemCard = async ({ item }: ItemCardProps) => {
+const ItemCard = ({ item }: ItemCardProps) => {
   return (
-    <div className="border border-solid border-white p-4 mx-auto mb-4 text-center">
+    <div className={styles.card}>
       <Image
         src={`${BASEURL}/14.19.1/img/item/${item.image.full}`}
         alt={item.name}
-        width={200}
-        height={200}
-        className="mb-4"
+        width={100}
+        height={100}
+        className={styles.image}
       />
-      <p className=" border border-solid border-l-0 border-r-0 border-b-0 ">
-        <span className="font-bold text-red-400 mb-4 text-xs">{item.name}</span>
-        <br />
-        <span>{item.title}</span>
-      </p>
+      <div className="text-sm text-center">{item.name}</div>
+      <div className={styles.text}>
+        <p className="text-sm text-center">
+          BASE : {item.gold.base} <br />
+          TOTAL : {item.gold.total}
+          <br />
+          SELL : {item.gold.sell}
+        </p>
+      </div>
     </div>
   );
 };

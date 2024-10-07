@@ -1,3 +1,5 @@
+import Image from "next/image";
+import LoadingImage from "../public/imgs/loading.gif";
 type LoadingProps = {
   type: string;
 };
@@ -5,13 +7,39 @@ type LoadingProps = {
 const Loading: React.FC<LoadingProps> = ({ type }) => {
   switch (type) {
     case "page1":
-      return <div>챔피언 리스트 로딩중입니다..</div>;
+      return (
+        <div className="w-full mx-auto flex justify-center items-center h-[100vh]">
+          <Image src={LoadingImage} alt="loading" />
+          <p className="text-center">CHAMPIONLIST</p>
+        </div>
+      );
     case "page2":
-      return <div>챔피언 상세페이지 로딩중입니다...</div>;
+      return (
+        <div className="w-full mx-auto flex justify-center items-center  h-[100vh]">
+          <Image src={LoadingImage} alt="loading" />
+          <p className="text-center">DETAIL PAGE</p>
+        </div>
+      );
     case "page3":
-      return <div>아이템 리스트 로딩중입니다...</div>;
+      return (
+        <div className="w-full mx-auto flex justify-center items-center  h-[100vh]">
+          <Image src={LoadingImage} alt="loading" />
+          <p className="text-center">ITEM LIST</p>
+        </div>
+      );
+    case "page4":
+      return (
+        <div className="w-full mx-auto flex justify-center items-center  h-[100vh]">
+          <Image src={LoadingImage} alt="loading" />
+          <p className="text-center">FREE CHARACTOR</p>
+        </div>
+      );
     default:
-      return <div>로딩중입니다...</div>;
+      return (
+        <div className="w-full mx-auto flex justify-center items-center  h-[100vh]">
+          <Image src={LoadingImage} alt="loading" className="bg-background" />
+        </div>
+      );
   }
 };
 

@@ -26,8 +26,8 @@ export default async function ChampionDetailPage({ params }: Params) {
     return <div>데이터가 없습니다.</div>;
   }
   return (
-    <div className="w-[80%] mx-auto">
-      <div className="w-[500px] mt-8 p-8 mx-auto border border-solid">
+    <div className="w-[80%] mx-auto font-korean">
+      <div className="w-[500px] mt-8 p-8 mx-auto border border-solid rounded">
         <h1 className="font-extrabold text-4xl text-center  text-red-400">
           {data.name}
         </h1>
@@ -51,14 +51,14 @@ export default async function ChampionDetailPage({ params }: Params) {
           {data.spells.map((spell) => (
             <div
               key={spell.id}
-              className="border border-solid border-white p-4 "
+              className="border border-solid border-white p-4 rounded"
             >
               <Image
                 src={`https://ddragon.leagueoflegends.com/cdn/14.19.1/img/spell/${spell.image.full}`}
                 alt={`${spell.id}`}
                 width={100}
                 height={100}
-                className="border border-solid border-white border-r-0 border-l-0 border-t-0 mt-4 pb-4"
+                className="border border-solid border-white border-r-0 border-l-0 border-t-0 mt-4 pb-4 "
               />
               <p className="mt-2 font-bold">{spell.name}</p>
               <p className="text-sm h-[80px] overflow-auto text-left mt-2">
